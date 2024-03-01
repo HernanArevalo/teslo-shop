@@ -1,10 +1,13 @@
-import Image from 'next/image'
+import { Title } from "@/components";
 
 export default function ShopPage() {
   return (
-    <main className="">
-      <h1>Hola mundo</h1>
-      <h1>Hola mundo</h1>
-    </main>
+    <>
+      <Title
+        title="Tienda"
+        subtitle="Todos los productos"
+        className="mb-2"
+      />
+    </>
   )
 }
