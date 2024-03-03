@@ -1,6 +1,5 @@
 import { titleFont } from "@/config/fonts"
 
-
 interface Props {
     title: string,
     subtitle?: string,
