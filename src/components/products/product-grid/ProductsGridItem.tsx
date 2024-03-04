@@ -8,7 +8,7 @@ interface Props {
     product: Product
 }
 
-export const ProductGridItem = ({ product }:Props) => {
+export const ProductsGridItem = ({ product }:Props) => {
 
     const [displayImage, setDisplayImage] = useState( product.images[0] )
 

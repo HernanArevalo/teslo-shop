@@ -1,4 +1,4 @@
-import { ProductGrid, Title } from "@/components";
+import { ProductsGrid, Title } from "@/components";
 import { initialData } from "@/seed/seed";
 
 const products = initialData.products;
@@ -12,7 +12,7 @@ export default function ShopPage() {
         className="mb-2"
       />
 
-      <ProductGrid products={products}/>
+      <ProductsGrid products={products}/>
     </>
   )
 }
