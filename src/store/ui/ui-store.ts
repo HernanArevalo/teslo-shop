@@ -9,7 +9,7 @@ interface State {
 }
 
 export const useUiStore = create<State>()((set) => ({
-  isSideMenuOpen: true,
+  isSideMenuOpen: false,
 
   openSideMenu: () => set({ isSideMenuOpen: true }),
   closeSideMenu: () => set({ isSideMenuOpen: false })

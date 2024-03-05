@@ -1,3 +1,5 @@
+import { ProductsGrid, Title } from "@/components";
+import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -6,18 +8,23 @@ interface Props {
   }
 }
 
+const seedProducts = initialData.products
+
 export default function CategoryPage({ params }: Props ) {
-
+  
   const { id } = params 
+  const products = seedProducts.filter(item => item.gender == id)
 
-  if ( id === 'kids') {
-    notFound();
-    
-  }
+
 
   return (
-    <div>
-      <h1>Category Page | {id}</h1>
-    </div>
-  );
+    <>
+      <Title
+        title="Store"
+        subtitle={id}
+        className="mb-2 capitalize"
+      />
+
+      <ProductsGrid products={products}/>
+    </>)
 }
