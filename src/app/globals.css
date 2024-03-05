@@ -51,11 +51,12 @@ body {
 
 .body-background {
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-start-rgb))
-      )
-      rgb(var(--background-end-rgb))
+    to bottom,
+    transparent,
+    rgb(var(--background-start-rgb))
+    )
+    rgb(var(--background-end-rgb));
+  background-attachment: fixed;
 }
 
 
