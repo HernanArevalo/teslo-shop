@@ -2,6 +2,7 @@ import { QuantitySelector, Title } from "@/components";
 import { initialData } from "@/seed/seed";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 
 const productsInCart = [
@@ -11,6 +12,12 @@ const productsInCart = [
 ]
 
 export default function CartPage() {
+
+  if (productsInCart.length < 1) {
+    redirect("/empty")
+  }
+
+
   return (
     <div className="flex justify-center items-start mb-72 px-10 sm:px-10">
       
