@@ -22,7 +22,11 @@ docker compose up -d
 ```bash
 npx prisma migrate dev
 ```
-6. Run the server in development mode:
+6. Execute seed:
+```bash
+npm run seed
+```
+7. Run the server in development mode:
 ```bash
 npm run dev
 ```
