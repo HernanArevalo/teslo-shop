@@ -18,7 +18,11 @@ npm install
 ```bash
 docker compose up -d
 ```
- 5. Run the server in development mode:
+5. Run prisma migrations:
+```bash
+npx prisma migrate dev
+```
+6. Run the server in development mode:
 ```bash
 npm run dev
 ```
