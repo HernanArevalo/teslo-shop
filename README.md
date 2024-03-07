@@ -3,15 +3,22 @@ Here it is a manual to run the project locally.
 
 ### Run in development 
 
-First, clone the repository:
+1. First, clone the repository:
 ```bash
 git clone https://github.com/HernanArevalo/teslo-shop
 ```
-Install the dependencies:
+2. Rename `.env.template` as `.env`, and change the *variables*.
+
+
+3. Install the dependencies:
 ```bash
 npm install
 ```
-Then, the development server:
+4. Start up the database:
+```bash
+docker compose up -d
+```
+ 5. Run the server in development mode:
 ```bash
 npm run dev
 ```
