@@ -1,9 +1,11 @@
-import { ProductsGrid, Title } from "@/components";
-import { initialData } from "@/seed/seed";
+import { getPaginatedProductsWithImages } from '@/actions';
+import { ProductsGrid, Title } from '@/components';
 
-const products = initialData.products;
 
-export default function ShopPage() {
+export default async function Home() {
+
+  const {products} = await getPaginatedProductsWithImages();
+
   return (
     <>
       <Title
@@ -12,7 +14,10 @@ export default function ShopPage() {
         className="mb-2"
       />
 
-      <ProductsGrid products={products}/>
+      <ProductsGrid 
+        products={ products }
+      />
+      
     </>
-  )
+  );
 }

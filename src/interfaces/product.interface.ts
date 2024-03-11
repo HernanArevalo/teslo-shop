@@ -8,10 +8,10 @@ export interface Product {
     slug: string;
     tags: string[];
     title: string;
-    //todo: type: Type;
+    //todo type: Type;
     gender: Category;
-}
-
-export type Category = 'men'|'women'|'kids'|'unisex'
-export type Size = 'XS'|'S'|'M'|'L'|'XL'|'XXL'|'XXXL';
-export type Type = 'shirts'|'pants'|'hoodies'|'hats';
+  }
+  
+  export type Category = 'men'|'women'|'kids'|'unisex';
+  export type Size = 'XS'|'S'|'M'|'L'|'XL'|'XXL'|'XXXL';
+  export type Type = 'shirts'|'pants'|'hoodies'|'hats';
