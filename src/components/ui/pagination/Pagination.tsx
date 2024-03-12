@@ -54,7 +54,7 @@ export const Pagination = ({ totalPages }: Props) => {
 
 
   return (
-    <div className="flex text-center justify-center mt-10 mb-32">
+    <div className="flex text-center justify-center my-10">
 
       <nav aria-label="Page navigation example">
 
