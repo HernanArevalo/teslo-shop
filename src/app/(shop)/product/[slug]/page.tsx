@@ -6,7 +6,8 @@ import { notFound } from "next/navigation";
 import { titleFont } from "@/config/fonts";
 
 import { getProductBySlug } from "@/actions";
-import { ProductMobileSlideshow, ProductSlideshow, QuantitySelector, SizeSelector, StockLabel } from "@/components";
+import { ProductMobileSlideshow, ProductSlideshow, StockLabel } from "@/components";
+import { AddToCart } from './ui/AddToCart';
 
 
 interface Props {
@@ -84,19 +85,7 @@ export default async function ProductPage({ params }: Props) {
 
         <p className="text-lg mb-5">${product.price}</p>
 
-        {/* Size picker */}
-        <SizeSelector 
-          availableSizes={product.sizes}
-          selectedSize={product.sizes[0]}
-        />
-
-        {/* Quantity picker */}
-        <QuantitySelector quantity={1}/>
-
-        {/* Button */}
-        <button className="btn-primary my-5">
-          Add to shopping cart
-        </button>
+        <AddToCart product={product}/>
 
         {/* Description */}
         <h3 className="font-bold text-sm">Description</h3>
