@@ -89,7 +89,7 @@ export default function CheckoutPage() {
               {/* Disclaimer */}
               <p className="mb-1">
                 <span className="text-xs">
-                  Al hacer clic en &quot;Make Order&quot;, acepté <a href="#" className="underline">términos y condiciones</a>
+                  Al hacer clic en &quot;Make Order&quot;, acepto <a href="#" className="underline">términos y condiciones</a>
                 </span>
               </p>
 
