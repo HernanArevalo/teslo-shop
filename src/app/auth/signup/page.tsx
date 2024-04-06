@@ -14,10 +14,15 @@ export default function SignupPage() {
           className="px-5 py-2 border bg-gray-200 rounded mb-5"
           type="text" />
 
-        <label htmlFor="email">Password</label>
+        <label htmlFor="email">Email</label>
         <input
           className="px-5 py-2 border bg-gray-200 rounded mb-5"
           type="email" />
+
+        <label htmlFor="email">Password</label>
+        <input
+          className="px-5 py-2 border bg-gray-200 rounded mb-5"
+          type="password" />
 
         <button
           className="btn-primary">
