@@ -1,12 +1,48 @@
 import NextAuth, { NextAuthConfig } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import z from 'zod';
+import prisma from './lib/prisma';
+import bcryptjs from 'bcryptjs';
 
 export const authConfig: NextAuthConfig = {
   pages: {
     signIn: '/auth/login',
     newUser: '/auth/signup',
   },
+
+  callbacks: {
+
+    authorized({ auth, request: { nextUrl } }) {
+      console.log({ auth });
+      // const isLoggedIn = !!auth?.user;
+
+      // const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
+      // if (isOnDashboard) {
+      //   if (isLoggedIn) return true;
+      //   return false; // Redirect unauthenticated users to login page
+      // } else if (isLoggedIn) {
+      //   return Response.redirect(new URL('/dashboard', nextUrl));
+      // }
+      return true;
+    },
+
+    jwt({ token, user }) {
+      if ( user ) {
+        token.data = user;
+      }
+
+      return token;
+    },
+
+    session({ session, token, user }) {
+      session.user = token.data as any;
+      return session;
+    },
+
+
+
+  },
+
   providers: [
     Credentials({
       async authorize(credentials) {
@@ -18,14 +54,20 @@ export const authConfig: NextAuthConfig = {
 
           const { email, password } = parsedCredentials.data;
 
-          console.log({ email, password });
-
           // search email
+          const user = await prisma.user.findUnique({ where: { email: email.toLowerCase() } });
+
+          if(!user) return null;
+
           // compare password
+          if( !bcryptjs.compareSync(password, user.password) ) return null;
 
-          // get user
+          // get user without pw
+          const { password: _, ...rest } = user;
 
-          return null;
+          // return user data
+          console.log({rest})
+          return rest;
       }
     })
   ],
