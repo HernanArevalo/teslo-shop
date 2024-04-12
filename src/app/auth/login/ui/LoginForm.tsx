@@ -1,8 +1,9 @@
 'use client';
 
 import { authenticate } from "@/actions";
+import clsx from "clsx";
 import Link from "next/link";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 import { IoAlertCircleSharp } from "react-icons/io5";
 
 export const LoginForm = () => {
@@ -31,7 +32,7 @@ export const LoginForm = () => {
           <p className="text-sm text-red-600">{errorMessage}</p>
         </div>
       )}
-      <button type="submit" className='btn-primary'>Log in</button>
+      <LoginButton />
 
       {/* divisor l ine */}
       <div className='flex items-center my-5'>
@@ -46,3 +47,16 @@ export const LoginForm = () => {
     </form>
   );
 };
+
+
+function LoginButton() {
+  const { pending } = useFormStatus();
+ 
+  return (
+    <button type="submit" 
+            className={clsx( pending? "btn-disabled":"btn-primary" )}
+            disabled={pending}>
+      Log in
+    </button>
+  );
+}
