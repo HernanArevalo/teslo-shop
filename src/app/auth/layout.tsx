@@ -1,4 +1,5 @@
 import { auth } from "@/auth.config";
+import { redirect } from "next/navigation";
 
 export default async function ShopLayout({
  children
@@ -8,7 +9,9 @@ export default async function ShopLayout({
 
   const session = await auth();
   
-  console.log({session});
+  if ( session?.user ) {
+    redirect('/');
+  };
 
   return (
     <main className="flex justify-center">

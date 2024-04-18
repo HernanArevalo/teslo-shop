@@ -3,13 +3,23 @@
 import { authenticate } from "@/actions";
 import clsx from "clsx";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import { IoAlertCircleSharp } from "react-icons/io5";
 
 export const LoginForm = () => {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+  const router = useRouter()
+  
+  useEffect(()=>{
+    if (errorMessage == "Success") {
+      router.replace('/')
+      
+    }
 
-  console.log({errorMessage: errorMessage});
+
+  },[errorMessage])
 
   return (
     <form action={ dispatch } className='flex flex-col'>
@@ -26,7 +36,7 @@ export const LoginForm = () => {
         type='password'
         name='password'
       />
-      {errorMessage && (
+      {(errorMessage && errorMessage!=="Success") && (
         <div className="flex flex-row gap-2">
           <IoAlertCircleSharp className="h-5 w-5 text-red-600" />
           <p className="text-sm text-red-600">{errorMessage}</p>
