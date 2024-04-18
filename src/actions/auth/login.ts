@@ -14,7 +14,13 @@ export async function authenticate(
 
     // await sleep(2)
 
-    await signIn('credentials', formData);
+    await signIn('credentials', {
+      ...Object.fromEntries(formData),
+      redirect: false,
+      
+    });
+
+    return 'Success'
   } catch (error) {
     if (error instanceof AuthError) {
       console.log(error.type);
