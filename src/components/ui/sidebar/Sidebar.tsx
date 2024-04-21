@@ -100,7 +100,7 @@ export const Sidebar = () => {
           className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all gap-3"
           onClick={closeSideMenu}
         >
-          <IoPersonAddOutline size={30} />
+          <IoPersonOutline size={30} />
           <span className="text-xl">Profile</span>
         </Link>
 
