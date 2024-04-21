@@ -65,8 +65,6 @@ export const authConfig: NextAuthConfig = {
           // get user without pw
           const { password: _, ...rest } = user;
 
-          // return user data
-          console.log({rest})
           return rest;
       }
     })
