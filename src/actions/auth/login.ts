@@ -1,7 +1,6 @@
 'use server';
 
 import { signIn } from '@/auth.config';
-import { sleep } from '@/utils/sleep';
 import { AuthError } from 'next-auth';
  
 // ...
@@ -11,8 +10,6 @@ export async function authenticate(
   formData: FormData,
 ) {
   try {
-
-    // await sleep(2)
 
     await signIn('credentials', {
       ...Object.fromEntries(formData),
@@ -34,4 +31,25 @@ export async function authenticate(
     }
     throw error;
   }
+}
+
+
+
+export const login = async(email:string, password: string) => {
+ 
+  try{
+
+    await signIn('credentials', {email, password})
+
+    return{
+      ok: true
+    }
+  }catch (error) {
+    console.log(error);
+    return {
+      ok: false,
+      message: 'Login error'
+    }
+  }
+
 }
