@@ -14,7 +14,7 @@ import {
 } from 'react-icons/io5';
 
 import { useUiStore } from '@/store';
-import { logout } from '@/actions/auth';
+import { logout } from '@/actions';
 import { useSession } from 'next-auth/react';
 
 export const Sidebar = () => {
@@ -22,8 +22,9 @@ export const Sidebar = () => {
   const closeSideMenu = useUiStore((state) => state.closeSideMenu);
 
   const { data: session } = useSession();
+  const isAuthenticated = !!session?.user
+  const isAdmin = (session?.user.role === 'admin');
 
-  const isAuthenticated = !!session?.user;
 
   return (
     <div className="">
@@ -66,24 +67,27 @@ export const Sidebar = () => {
         </div>
 
         {/* Menu */}
-        <Link
-          href={'/profile'}
-          className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all gap-3"
-          onClick={closeSideMenu}
-        >
-          <IoPersonOutline size={30} />
-          <span className="text-xl">Profile</span>
-        </Link>
+        { isAuthenticated && (
+          <>
+            <Link
+              href={'/profile'}
+              className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all gap-3"
+              onClick={closeSideMenu}
+            >
+              <IoPersonOutline size={30} />
+              <span className="text-xl">Profile</span>
+            </Link>
 
-        <Link
-          href={'/'}
-          className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all gap-3"
-          onClick={closeSideMenu}
-        >
-          <IoTicketOutline size={30} />
-          <span className="text-xl">Orders</span>
-        </Link>
-
+            <Link
+              href={'/'}
+              className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all gap-3"
+              onClick={closeSideMenu}
+            >
+              <IoTicketOutline size={30} />
+              <span className="text-xl">Orders</span>
+            </Link>
+          </>
+        )}
         {isAuthenticated ? (
           <button
             className="flex items-center w-full mt-10 p-2 hover:bg-gray-100 rounded transition-all gap-3"
@@ -102,30 +106,33 @@ export const Sidebar = () => {
             <span className="text-xl">Log-in</span>
           </Link>
         )}
+        { isAdmin &&
+          <>
+            <div className="w-full h-px bg-gray-200 my-10" />
 
-        <div className="w-full h-px bg-gray-200 my-10" />
-
-        <Link
-          href="/"
-          className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all gap-3"
-        >
-          <IoShirtOutline size={30} />
-          <span className="text-xl">Products</span>
-        </Link>
-        <Link
-          href="/"
-          className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all gap-3"
-        >
-          <IoTicketOutline size={30} />
-          <span className="text-xl">Orders</span>
-        </Link>
-        <Link
-          href="/"
-          className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all gap-3"
-        >
-          <IoPeopleOutline size={30} />
-          <span className="text-xl">Clients</span>
-        </Link>
+            <Link
+              href="/"
+              className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all gap-3"
+            >
+              <IoShirtOutline size={30} />
+              <span className="text-xl">Products</span>
+            </Link>
+            <Link
+              href="/"
+              className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all gap-3"
+            >
+              <IoTicketOutline size={30} />
+              <span className="text-xl">Orders</span>
+            </Link>
+            <Link
+              href="/"
+              className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all gap-3"
+            >
+              <IoPeopleOutline size={30} />
+              <span className="text-xl">Clients</span>
+            </Link>
+          </>
+        }
       </nav>
     </div>
   );
