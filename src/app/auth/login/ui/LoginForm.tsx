@@ -3,19 +3,16 @@
 import { authenticate } from "@/actions";
 import clsx from "clsx";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import { IoAlertCircleSharp } from "react-icons/io5";
 
 export const LoginForm = () => {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
-  const router = useRouter()
   
   useEffect(()=>{
     if (errorMessage == "Success") {
-      router.replace('/')
-      
+      window.location.replace('/')
     }
 
 
