@@ -4,6 +4,13 @@ import { z } from 'zod';
 import prisma from './lib/prisma';
 import bcryptjs from 'bcryptjs';
 
+const authenticatedRoutes = [
+  '/checkout',
+  '/checkout/adress',
+  '/profile',
+  '/orders'
+]
+
 export const authConfig: NextAuthConfig = {
   pages: {
     signIn: '/auth/login',
@@ -12,19 +19,18 @@ export const authConfig: NextAuthConfig = {
 
   callbacks: {
 
-    authorized({ auth, request: { nextUrl } }) {
-      console.log({ auth });
-      // const isLoggedIn = !!auth?.user;
-
-      // const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
-      // if (isOnDashboard) {
-      //   if (isLoggedIn) return true;
-      //   return false; // Redirect unauthenticated users to login page
-      // } else if (isLoggedIn) {
-      //   return Response.redirect(new URL('/dashboard', nextUrl));
-      // }
-      return true;
-    },
+    // authorized({ auth, request: { nextUrl } }) {
+    //   console.log(auth);
+    //   const isLoggedIn = !!auth?.user;
+    //   const isOnDashboard = authenticatedRoutes.includes( nextUrl.pathname );
+    //   if (isOnDashboard) {
+    //     if (isLoggedIn) return true;
+    //     return false; // Redirect unauthenticated users to login page
+    //   } else if (isLoggedIn) {
+    //     return true // return Response.redirect(new URL('/', nextUrl));
+    //   }
+    //   return true;
+    // },
 
     jwt({ token, user }) {
       if ( user ) {
