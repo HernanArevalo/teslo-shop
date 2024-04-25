@@ -18,8 +18,7 @@ import { logout } from '@/actions';
 import { useSession } from 'next-auth/react';
 
 export const Sidebar = () => {
-  const isSideMenuOpen = useUiStore((state) => state.isSideMenuOpen);
-  const closeSideMenu = useUiStore((state) => state.closeSideMenu);
+  const {isSideMenuOpen, closeSideMenu } = useUiStore();
 
   const { data: session } = useSession();
   const isAuthenticated = !!session?.user
