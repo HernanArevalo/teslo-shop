@@ -1,5 +1,30 @@
 'use client';
+import clsx from 'clsx';
+import { useForm } from 'react-hook-form';
+
+interface FormInputs {
+  firstName: string,
+  lastName: string,
+  adress: string,
+  adress2?: string,
+  postalCode: string,
+  city: string,
+  country: string,
+  phone: string,
+  rememberAdress: boolean
+}
+
 export const AdressForm = () => {
+
+  const { handleSubmit, register, formState: {isValid} } = useForm<FormInputs>({
+    defaultValues:{
+      // Todo: read from database
+    }
+  });
+
+  const onSubmit = (data: FormInputs) => {
+    console.log(data);
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-2 sm:gap-5 sm:grid-cols-2">
