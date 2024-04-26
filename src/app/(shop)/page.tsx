@@ -1,4 +1,4 @@
-export const revalidate = 60
+export const revalidate = 60;
 
 import { redirect } from 'next/navigation';
 
@@ -7,35 +7,27 @@ import { Pagination, ProductsGrid, Title } from '@/components';
 
 interface Props {
   searchParams: {
-    page?: string
-  }
+    page?: string;
+  };
 }
 
+export default async function Home({ searchParams }: Props) {
+  const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
-export default async function Home({ searchParams  }: Props) {
+  const { products, totalPages, currentPage } =
+    await getPaginatedProductsWithImages({ page });
 
-  const page = searchParams.page ? parseInt( searchParams.page ) : 1;
-
-  const {products, totalPages, currentPage} = await getPaginatedProductsWithImages({page});
-
-
-  if( products.length === 0){
-    redirect('/')
+  if (products.length === 0) {
+    redirect('/');
   }
 
   return (
     <>
-      <Title
-        title="Tienda"
-        subtitle="Todos los productos"
-        className="mb-2"
-      />
+      <Title title="Tienda" subtitle="Todos los productos" className="mb-2" />
 
-      <ProductsGrid 
-        products={ products }
-      />
-      
-      <Pagination totalPages={totalPages}/>
+      <ProductsGrid products={products} />
+
+      <Pagination totalPages={totalPages} />
     </>
   );
 }
