@@ -81,3 +81,20 @@ model Country {
   name       String
   UserAddress UserAddress[]
 }
+
+model UserAddress {
+  id         String @id @default(uuid())
+  firstName  String
+  lastName   String
+  address     String
+  address2    String
+  postalCode String
+  phone      String
+
+  // Relations
+  country   Country @relation(fields: [countryId], references: [id])
+  countryId String
+
+  user User @relation(fields: [userId], references: [id])
+  userId String @unique
+}
