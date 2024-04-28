@@ -1,36 +1,71 @@
 'use client';
-import { Country } from '@/interfaces';
+import { deleteUserAddress, setUserAddress } from '@/actions';
+import { Address, Country } from '@/interfaces';
+import { useAddressStore } from '@/store';
 import clsx from 'clsx';
+import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 interface FormInputs {
   firstName: string,
   lastName: string,
-  adress: string,
-  adress2?: string,
+  address: string,
+  address2?: string,
   postalCode: string,
   city: string,
   country: string,
   phone: string,
-  rememberAdress: boolean
+  rememberAddress: boolean
 }
 
 interface Props {
   countries: Country[]
+  userStoredAddress?: Partial<Address>
 }
 
 
-export const AdressForm = ({countries}: Props) => {
+export const AddressForm = ({countries, userStoredAddress = {}}: Props) => {
 
 
-  const { handleSubmit, register, formState: {isValid} } = useForm<FormInputs>({
+  const { handleSubmit, register, formState: {isValid}, reset } = useForm<FormInputs>({
     defaultValues:{
-      // Todo: read from database
+      ...(userStoredAddress as any),
+      rememberAddress: false
     }
   });
 
+  const { data: sessionData } = useSession({
+    required: true
+  })
+
+
+  const setAddress = useAddressStore(state => state.setAddress)
+  const address = useAddressStore(state => state.address)
+
+  useEffect(() => {
+    if (address.firstName){
+      reset(address)
+    }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address.firstName])
+  
+
   const onSubmit = (data: FormInputs) => {
-    console.log(data);
+
+    setAddress(data);
+
+    const {rememberAddress, ...rest } = data
+
+    if ( rememberAddress ) {
+      // Todo: server action
+      setUserAddress(rest, sessionData!.user.id)
+    }else{
+      // Todo: server action
+      deleteUserAddress(sessionData!.user.id)
+    }
+
   }
 
   return (
@@ -47,12 +82,12 @@ export const AdressForm = ({countries}: Props) => {
 
       <div className="flex flex-col mb-2">
         <span>Dirección</span>
-        <input type="text" className="p-2 border rounded-md bg-gray-300" { ...register('adress', {required: true })}/>
+        <input type="text" className="p-2 border rounded-md bg-gray-300" { ...register('address', {required: true })}/>
       </div>
 
       <div className="flex flex-col mb-2">
         <span>Dirección 2 (opcional)</span>
-        <input type="text" className="p-2 border rounded-md bg-gray-300" { ...register('adress2')}/>
+        <input type="text" className="p-2 border rounded-md bg-gray-300" { ...register('address2')}/>
       </div>
 
       <div className="flex flex-col mb-2">
@@ -92,8 +127,7 @@ export const AdressForm = ({countries}: Props) => {
               type="checkbox"
               className="border-gray-500 before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-blue-500 hover:before:opacity-10"
               id="checkbox"
-              { ...register('rememberAdress')}
-              checked
+              { ...register('rememberAddress')}
             />
             <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
               <svg
