@@ -1,10 +1,21 @@
 import { Title } from '@/components';
-import { AdressForm } from './ui/AdressForm';
-import { getCountries } from '@/actions';
+import { AddressForm } from './ui/AddressForm';
+import { getCountries, getUserAddress } from '@/actions';
+import { auth } from '@/auth.config';
 
 export default async function AddressPage() {
 
   const countries = await getCountries();
+
+  const session = await auth();
+
+  if ( !session?.user ) {
+    return(
+      <h3 className="text-5xl">No hay sesión de usuario</h3>
+    )
+  }
+
+  const userAddress = await getUserAddress(session.user.id) ?? undefined
 
   return (
     <div className="flex flex-col sm:justify-center sm:items-center mb-72 px-10 sm:px-0">
@@ -15,7 +26,7 @@ export default async function AddressPage() {
         
         <Title title="Dirección" subtitle="Dirección de entrega" />
 
-        <AdressForm countries={countries}/>
+        <AddressForm countries={countries} userStoredAddress= { userAddress } />
 
       </div>
 
