@@ -2,7 +2,7 @@ import { Title } from '@/components';
 import { AdressForm } from './ui/AdressForm';
 import { getCountries } from '@/actions';
 
-export default async function AdressPage() {
+export default async function AddressPage() {
 
   const countries = await getCountries();
 
