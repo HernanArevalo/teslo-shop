@@ -1,4 +1,3 @@
-
 export interface Address {
   firstName: string;
   lastName: string;
@@ -8,5 +7,4 @@ export interface Address {
   city: string;
   country: string;
   phone: string;
-  
 }
