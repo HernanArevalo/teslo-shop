@@ -5,6 +5,7 @@ import prisma from '../lib/prisma'
 async function main() {
     
     // 1. detele previous records
+    await prisma.userAddress.deleteMany();
     await prisma.user.deleteMany();
     await prisma.country.deleteMany();
 
