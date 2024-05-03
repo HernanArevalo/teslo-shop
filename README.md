@@ -26,6 +26,8 @@ npx prisma migrate dev
 ```bash
 npm run seed
 ```
+8. Clean local storage.
+
 7. Run the server in development mode:
 ```bash
 npm run dev
