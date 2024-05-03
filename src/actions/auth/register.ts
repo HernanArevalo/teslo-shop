@@ -1,40 +1,37 @@
-"use server"
+'use server';
 
-import prisma from "@/lib/prisma";
+import prisma from '@/lib/prisma';
 import bcryptjs from 'bcryptjs';
 
-
-
-export const registerUser = async(name: string, email:string, password:string) => {
-
+export const registerUser = async (
+  name: string,
+  email: string,
+  password: string
+) => {
   try {
-
     const user = await prisma.user.create({
       data: {
         name: name,
         email: email.toLowerCase(),
-        password: bcryptjs.hashSync( password )
+        password: bcryptjs.hashSync(password),
       },
       select: {
         id: true,
         name: true,
-        email: true
-      }
-    })
+        email: true,
+      },
+    });
 
     return {
       ok: true,
       user: user,
-      message: 'User created.'
-    }
-
-    
+      message: 'User created.',
+    };
   } catch (error) {
     console.log(error);
-    return{
+    return {
       ok: false,
-      message: 'Error creating user.'
-    }
+      message: 'Error creating user.',
+    };
   }
-
-}
+};

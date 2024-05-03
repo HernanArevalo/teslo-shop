@@ -1,27 +1,23 @@
 'use server';
 
-import prisma from "@/lib/prisma";
+import prisma from '@/lib/prisma';
 
-export const deleteUserAddress = async(userId:string) => {
-
+export const deleteUserAddress = async (userId: string) => {
   try {
-
     const deletedAdress = await prisma.userAddress.delete({
       where: {
-        userId: userId
-      }
-    })
+        userId: userId,
+      },
+    });
 
     return {
       ok: true,
-      deletedAdress: deletedAdress
-    }
+      deletedAdress: deletedAdress,
+    };
   } catch (error) {
     return {
       ok: false,
-      message: 'Error deleting userAddres'
-    }
+      message: 'Error deleting userAddres',
+    };
   }
-
-
-}
+};
