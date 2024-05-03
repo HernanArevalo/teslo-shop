@@ -41,8 +41,7 @@ export const AddressForm = ({countries, userStoredAddress = {}}: Props) => {
   })
 
 
-  const setAddress = useAddressStore(state => state.setAddress)
-  const address = useAddressStore(state => state.address)
+  const { address, setAddress} = useAddressStore()
 
   useEffect(() => {
     if (address.firstName){
