@@ -1,25 +1,20 @@
-"use server"
+'use server';
 
-import { Country } from "@/interfaces";
-import prisma from "@/lib/prisma";
+import { Country } from '@/interfaces';
+import prisma from '@/lib/prisma';
 
-
-
-export const getCountries = async() => {
-
+export const getCountries = async () => {
   try {
-    
-    const countries:Country[] = await prisma.country.findMany({
+    const countries: Country[] = await prisma.country.findMany({
       orderBy: {
-        name: "asc"
-      }
-    })
+        name: 'asc',
+      },
+    });
 
-    return countries
+    return countries;
   } catch (error) {
     console.log(error);
 
-    return []
+    return [];
   }
-
-}
+};
