@@ -24,9 +24,6 @@ export const placeOrder = async( productsIds: ProductToOrder[], address: Address
     
   }
 
-  console.log({ productsIds, address });
-
-
-
+  console.log({ productsIds, address, userId });
 
 }
