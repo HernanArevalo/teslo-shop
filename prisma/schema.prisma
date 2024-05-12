@@ -114,7 +114,7 @@ model Order {
   tax      Float
   total    Float
   items    Int
-  isPaid   Boolean
+  isPaid   Boolean   @default(false)
   paidAt   DateTime?
 
   createdAt DateTime @default(now())
