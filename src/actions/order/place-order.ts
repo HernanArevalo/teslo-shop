@@ -83,15 +83,23 @@ export const placeOrder = async (
       }
     });
 
-    // Validate prize zero, and send error 
+    // Validate prize zero, and send error
 
     // 3. create order address
+    const { country, ...restAddress } = address;
+    const orderAddress = await tx.orderAddress.create({
+      data: {
+        ...restAddress,
+        countryId: country,
+        orderId: order.id,
+      },
+    });
 
     return {
       ok: true,
       order: order,
       updatedProducts: [],
-      OrderAddress: {}
+      OrderAddress: orderAddress,
     };
   });
 
