@@ -76,11 +76,11 @@ export const placeOrder = async (
               productId: p.productId,
               price:
                 products.find((product) => product.id === p.productId)?.price ??
-                0
-            }))
-          }
-        }
-      }
+                  0,
+              })),
+            },
+          },
+        },
     });
 
     // Validate prize zero, and send error
