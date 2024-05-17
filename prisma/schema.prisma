@@ -123,8 +123,10 @@ model Order {
   //* relations
   user         User          @relation(fields: [userId], references: [id])
   userId       String
+
   OrderItems   OrderItem[]
   OrderAddress OrderAddress?
+
 }
 
 model OrderItem {
