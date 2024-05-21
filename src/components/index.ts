@@ -1,4 +1,5 @@
 
+export * from './paypal/PayPalButton'
 
 export * from './products/product-grid/ProductsGrid'
 export * from './products/product-grid/ProductsGridItem'
