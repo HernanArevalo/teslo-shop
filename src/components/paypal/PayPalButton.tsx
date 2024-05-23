@@ -1,6 +1,9 @@
 'use client'
 
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
+import { CreateOrderData, CreateOrderActions, OnApproveData, OnApproveActions } from '@paypal/paypal-js'
+import { paypalCheckPayment, setTransactionId } from '@/actions';
+
 interface Props {
   orderId: string;
   amount: number
