@@ -48,7 +48,22 @@ export const PayPalButton = ({orderId, amount}: Props ) => {
     return transactionId
   }
 
+  const onApprove = async(data: OnApproveData, actions: OnApproveActions) => {
+
+    const details = await actions.order?.capture();
+
+    if (!details) return
+
+    await paypalCheckPayment( details.id ?? '' )
+  }
+
+
+
+
   return (
+    <PayPalButtons 
       createOrder={ createOrder }
+      onApprove={ onApprove }
+    />
   )
 }
