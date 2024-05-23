@@ -2,7 +2,7 @@
 
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
 
-export const PayPalButton = () => {
+export const PayPalButton = ({orderId, amount}: Props ) => {
 
   const [{ isPending }] = usePayPalScriptReducer()
 
