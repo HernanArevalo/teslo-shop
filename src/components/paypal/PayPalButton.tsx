@@ -19,7 +19,33 @@ export const PayPalButton = ({orderId, amount}: Props ) => {
     )
   }
 
+  const createOrder = async(data: CreateOrderData, actions: CreateOrderActions): Promise<string> => {
+
+    const transactionId = await actions.order.create({
+      intent: 'CAPTURE',
+      purchase_units: [
+
+        {
+          // invoice_id ó reference_id: 'order_id'
+          amount: {
+            value: roundedAmount.toString(),
+            currency_code: 'USD',
+            
+          }
+        }
+      ]
+    })
+
+    // console.log({transactionId});
+    const { ok } = await setTransactionId(orderId, transactionId)
+    if ( !ok){
+      throw new Error(`No se pudo actualizar la orden`)
+    }
+
+    return transactionId
+  }
+
   return (
-    <PayPalButtons />
+      createOrder={ createOrder }
   )
 }
