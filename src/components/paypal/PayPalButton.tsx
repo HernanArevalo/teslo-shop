@@ -10,6 +10,9 @@ export const PayPalButton = ({orderId, amount}: Props ) => {
 
   const [{ isPending }] = usePayPalScriptReducer()
 
+  const roundedAmount = (Math.round(amount * 100)) / 100
+
+
   if (isPending) {
     return (
       <div className="animate-pulse pb-12">
