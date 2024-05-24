@@ -1,5 +1,7 @@
 'use server';
 import { PayPalOrderStatusResponse } from '@/interfaces';
+import prisma from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 
 
@@ -23,7 +25,7 @@ export const paypalCheckPayment = async (paypalTransactionId: string) => {
   }
 
   const { status, purchase_units } = resp
-  // const {  } = purchase_units[0] // TODO: invoice ID 
+  const { invoice_id: orderId } = purchase_units[0]
 
   if ( status !== 'COMPLETED') {
     return {
@@ -32,10 +34,31 @@ export const paypalCheckPayment = async (paypalTransactionId: string) => {
     }
   }
 
-  // TODO: Realizar actualización en base de datos
+  try {
 
-  console.log({status, purchase_units});
+    await prisma.order.update({
+      where: { id: orderId },
+      data: {
+        isPaid: true,
+        paidAt: new Date()
+      }
+    })
 
+    // TODO: Revalidate path
+    revalidatePath(`/orders/${ orderId }`)
+
+    return{
+      ok: true
+    }
+    
+  } catch (error) {
+    console.log(error);
+    return{
+      ok: false,
+      message: '500 - El pago no se pudo realizar'
+    }
+  }
+  
 };
 
 
