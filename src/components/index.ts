@@ -1,4 +1,6 @@
 
+export * from './orders/OrderStatus'
+
 export * from './paypal/PayPalButton'
 
 export * from './products/product-grid/ProductsGrid'

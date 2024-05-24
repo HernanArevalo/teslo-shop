@@ -1,13 +1,9 @@
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 
-import clsx from 'clsx';
-import { IoCartOutline } from 'react-icons/io5';
-
 import { getOrderById } from '@/actions';
-import { PayPalButton, Title } from '@/components';
+import { OrderStatus, PayPalButton, Title } from '@/components';
 import { currencyFormat } from '@/utils';
-
 
 interface Props {
   params: {
@@ -34,21 +30,7 @@ export default async function OrderPage({ params }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           {/* Cart */}
           <div className="flex flex-col mt-5">
-            <div
-              className={clsx(
-                'flex items-center gap-4 rounded-lg py-2 px-3.5 text-xs font-bold text-white mb-5',
-                {
-                  'bg-red-600': !order?.isPaid,
-                  'bg-green-600': order?.isPaid,
-                }
-              )}
-            >
-              <IoCartOutline size={30} />
-              {/* <span className="mx-2">Pendiente</span> */}
-              <span className="mx-2">
-                {order?.isPaid ? 'Pagado' : 'No pagado'}
-              </span>
-            </div>
+            <OrderStatus isPaid={order?.isPaid ?? false} />
 
             {order?.OrderItems.map((item) => (
               <div
@@ -107,7 +89,9 @@ export default async function OrderPage({ params }: Props) {
               </span>
 
               <span className="font-semibold">Subtotal</span>
-              <span className="text-right">{currencyFormat(order!.subTotal)}</span>
+              <span className="text-right">
+                {currencyFormat(order!.subTotal)}
+              </span>
 
               <span className="font-semibold">Taxes (15%)</span>
               <span className="text-right">{currencyFormat(order!.tax)}</span>
@@ -119,12 +103,11 @@ export default async function OrderPage({ params }: Props) {
             </div>
 
             <div className="mt-5 mb-2 w-full">
-
-              <PayPalButton 
-                orderId={order!.id} 
-                amount={order!.total}
-              />
-
+              {order?.isPaid ? (
+                <OrderStatus isPaid={order?.isPaid ?? false} />
+              ) : (
+                <PayPalButton orderId={order!.id} amount={order!.total} />
+              )}
             </div>
           </div>
         </div>
