@@ -64,7 +64,7 @@ const getPaypalBearerToken = async (): Promise<string | null> => {
   };
 
   try {
-    const result = await fetch(PAYPAL_OAUTH_URL, requestOptions).then((r) =>
+    const result = await fetch(PAYPAL_OAUTH_URL, { ...requestOptions, cache: 'no-store'}).then((r) =>
       r.json()
     );
     return result.access_token;
@@ -96,13 +96,11 @@ const verifyPaypalPayment = async(
 
   try {
     
-    const response = await fetch( paypalOrderUrl, requestOptions ).then(r => r.json())
+    const response = await fetch( paypalOrderUrl, { ...requestOptions, cache: 'no-store'} ).then(r => r.json())
     return response
 
   } catch (error) {
     console.log(error)
-
     return null
   }
-
 };
