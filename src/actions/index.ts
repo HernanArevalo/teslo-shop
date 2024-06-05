@@ -21,5 +21,7 @@ export * from './product/get-stock-by-slug'
 
 export * from './products/product-pagination'
 
+export * from './users/change-user-role'
+
 
 
