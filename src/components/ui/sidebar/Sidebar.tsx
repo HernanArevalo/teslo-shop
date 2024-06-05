@@ -100,7 +100,7 @@ export const Sidebar = () => {
             href={'/auth/login'}
             className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all gap-3"
             onClick={closeSideMenu}
-          >
+            >
             <IoLogInOutline size={30} />
             <span className="text-xl">Log-in</span>
           </Link>
@@ -112,23 +112,26 @@ export const Sidebar = () => {
             <Link
               href="/"
               className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all gap-3"
-            >
+              onClick={closeSideMenu}
+              >
               <IoShirtOutline size={30} />
               <span className="text-xl">Products</span>
             </Link>
             <Link
-              href="/"
+              href="/admin/orders"
               className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all gap-3"
-            >
+              onClick={closeSideMenu}
+              >
               <IoTicketOutline size={30} />
               <span className="text-xl">Orders</span>
             </Link>
             <Link
-              href="/"
+              href="/admin/users"
               className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all gap-3"
+              onClick={closeSideMenu}
             >
               <IoPeopleOutline size={30} />
-              <span className="text-xl">Clients</span>
+              <span className="text-xl">Users</span>
             </Link>
           </>
         }
