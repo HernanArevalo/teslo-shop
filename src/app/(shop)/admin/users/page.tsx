@@ -6,12 +6,16 @@ import { redirect } from 'next/navigation';
 import { getPaginatedUsers } from '@/actions';
 import { Pagination, Title } from '@/components';
 import { UsersTable } from './ui';
+import { auth } from '@/auth.config';
 
 
 export default async function UsersPage() {
 
   const { ok, users = [] } = await getPaginatedUsers();
 
+  const session = await auth()
+
+  session?.user.id
 
   if ( !ok ) {
     redirect('/auth/login')
@@ -22,9 +26,9 @@ export default async function UsersPage() {
       <Title title="Users" />
 
       <div className="mb-10">
-        <UsersTable users={users} />
+        <UsersTable users={users} session={session}/>
 
-        <Pagination totalPages={3}/>
+        <Pagination totalPages={ 1 }/>
       </div>
     </>
   );
