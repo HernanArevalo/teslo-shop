@@ -83,7 +83,7 @@ export const Sidebar = () => {
               onClick={closeSideMenu}
             >
               <IoTicketOutline size={30} />
-              <span className="text-xl">Orders</span>
+              <span className="text-xl">My orders</span>
             </Link>
           </>
         )}
