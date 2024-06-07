@@ -5,11 +5,10 @@ import type { User } from '@/interfaces';
 
 interface Props {
   users: User[];
+  session: any
 }
 
-export const UsersTable = ({ users }: Props) => {
-
-
+export const UsersTable = ({ users, session }: Props) => {
 
   return (
     <table className="min-w-full">
@@ -48,6 +47,7 @@ export const UsersTable = ({ users }: Props) => {
               {user.name}
             </td>
             <td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+              { user.id !== session?.user.id ?
               <select
                 className="text-sm text-gray-900 w-full p-2"
                 value={user.role}
@@ -60,7 +60,11 @@ export const UsersTable = ({ users }: Props) => {
                   User
                 </option>
               </select>
-              
+              :
+              <span className="text-sm text-gray-400 w-full p-2 pl-3">
+                Admin
+              </span>
+              }
             </td>
           </tr>
         ))}
