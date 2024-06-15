@@ -1,10 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-import Image from 'next/image';
-
 import { useCartStore } from '@/store';
 import { currencyFormat } from '@/utils';
+import { ProductImage } from '@/components';
 
 export const ProductsInCart = () => {
 
@@ -26,14 +25,14 @@ export const ProductsInCart = () => {
           className="flex gap-5 mb-7"
           key={`${product.slug}-${product.size}`}
         >
-          <Image
-            src={`/products/${product.image}`}
-            width={100}
-            height={110}
-            style={{ width: '100px', height: '110px' }}
-            alt={product.title}
-            className="rounded"
-          />
+          <ProductImage
+              src={product.image && `/products/${product.image}`}
+              width={100}
+              height={100}
+              style={{ width: '100px', height: '110px' }}
+              alt={product.title}
+              className='rounded'
+            />
           <div className="">
               <p className="font-semibold">
                 {product.title}

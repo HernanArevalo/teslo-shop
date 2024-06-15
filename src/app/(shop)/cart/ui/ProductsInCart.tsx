@@ -1,9 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 
-import { QuantitySelector } from '@/components';
+import { ProductImage, QuantitySelector } from '@/components';
 import { useCartStore } from '@/store';
 
 export const ProductsInCart = () => {
@@ -36,8 +35,8 @@ export const ProductsInCart = () => {
             href={`/product/${product.slug}`}
             className='hover:underline cursor-pointer'
           >
-            <Image
-              src={`/products/${product.image}`}
+            <ProductImage
+              src={product.image && `/products/${product.image}`}
               width={100}
               height={100}
               style={{ width: '100px', height: '110px' }}
