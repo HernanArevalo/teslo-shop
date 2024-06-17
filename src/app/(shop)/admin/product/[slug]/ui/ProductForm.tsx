@@ -2,7 +2,11 @@
 
 import { createUpdateProduct, deleteProductImage } from '@/actions';
 import { ProductImage } from '@/components';
-import { Category, Product, ProductImage as ProductImageInt } from '@/interfaces';
+import {
+  Category,
+  Product,
+  ProductImage as ProductImageInt,
+} from '@/interfaces';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -28,11 +32,9 @@ interface FormInputs {
 
   // TODO: images
   images?: FileList;
-
 }
 
 export const ProductForm = ({ product, categories = [] }: Props) => {
-
   const router = useRouter();
 
   const {
@@ -49,7 +51,7 @@ export const ProductForm = ({ product, categories = [] }: Props) => {
       sizes: product.sizes ?? [],
 
       // TODO: images
-      images: undefined
+      images: undefined,
     },
   });
 
@@ -73,9 +75,9 @@ export const ProductForm = ({ product, categories = [] }: Props) => {
         title: 'Error!',
         text: 'Select a Size',
         icon: 'error',
-        confirmButtonText: 'Cool'
-      })
-      return
+        confirmButtonText: 'Cool',
+      });
+      return;
     }
 
     if (product.id) {
@@ -92,19 +94,19 @@ export const ProductForm = ({ product, categories = [] }: Props) => {
     formData.append('gender', productToSave.gender);
 
     if (images) {
-      for( let i = 0; i < images.length; i++){
-        formData.append('images', images[i])
+      for (let i = 0; i < images.length; i++) {
+        formData.append('images', images[i]);
       }
     }
 
-    const { ok, product:updatedProduct } = await createUpdateProduct(formData);
+    const { ok, product: updatedProduct } = await createUpdateProduct(formData);
 
-    if ( !ok ) {
-      alert('Error updating product')
-      return
-    };
+    if (!ok) {
+      alert('Error updating product');
+      return;
+    }
 
-    router.replace(`/admin/product/${updatedProduct?.slug}`)
+    router.replace(`/admin/product/${updatedProduct?.slug}`);
   };
 
   return (
@@ -161,7 +163,10 @@ export const ProductForm = ({ product, categories = [] }: Props) => {
 
         <div className="flex flex-col mb-2">
           <span>Gender</span>
-          <select className="p-2 border rounded-md bg-gray-200" { ...register('gender', {required: true}) }> 
+          <select
+            className="p-2 border rounded-md bg-gray-200"
+            {...register('gender', { required: true })}
+          >
             <option value="men">Men</option>
             <option value="women">Women</option>
             <option value="kid">Kid</option>
@@ -171,11 +176,15 @@ export const ProductForm = ({ product, categories = [] }: Props) => {
 
         <div className="flex flex-col mb-2">
           <span>Category</span>
-          <select className="p-2 border rounded-md bg-gray-200" { ...register('categoryId', {required: true}) }>
-            { categories.map(category => (
-              <option value={category.id} key={category.id}>{category.name}</option>
-            ))
-            }
+          <select
+            className="p-2 border rounded-md bg-gray-200"
+            {...register('categoryId', { required: true })}
+          >
+            {categories.map((category) => (
+              <option value={category.id} key={category.id}>
+                {category.name}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -220,7 +229,7 @@ export const ProductForm = ({ product, categories = [] }: Props) => {
           <div className="flex flex-col mb-2">
             <span>Pictures</span>
             <input
-              { ...register('images') }
+              {...register('images')}
               type="file"
               multiple
               className="p-2 border rounded-md bg-gray-200"
