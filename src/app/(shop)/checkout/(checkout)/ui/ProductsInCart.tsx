@@ -26,7 +26,7 @@ export const ProductsInCart = () => {
           key={`${product.slug}-${product.size}`}
         >
           <ProductImage
-              src={product.image && `/products/${product.image}`}
+              src={product.image}
               width={100}
               height={100}
               style={{ width: '100px', height: '110px' }}
