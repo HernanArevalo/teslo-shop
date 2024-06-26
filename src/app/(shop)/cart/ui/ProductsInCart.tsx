@@ -36,7 +36,7 @@ export const ProductsInCart = () => {
             className='hover:underline cursor-pointer'
           >
             <ProductImage
-              src={product.image && `/products/${product.image}`}
+              src={product.image}
               width={100}
               height={100}
               style={{ width: '100px', height: '110px' }}
