@@ -9,17 +9,17 @@ import { IoAlertCircleSharp } from "react-icons/io5";
 
 export const LoginForm = () => {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     if (errorMessage == "Success") {
       window.location.replace('/')
     }
 
 
-  },[errorMessage])
+  }, [errorMessage])
 
   return (
-    <form action={ dispatch } className='flex flex-col'>
+    <form action={dispatch} className='flex flex-col'>
       <label htmlFor='email'>Email</label>
       <input
         className='px-5 py-2 border bg-gray-200 rounded mb-5'
@@ -33,7 +33,7 @@ export const LoginForm = () => {
         type='password'
         name='password'
       />
-      {(errorMessage && errorMessage!=="Success") && (
+      {(errorMessage && errorMessage !== "Success") && (
         <div className="flex flex-row gap-2">
           <IoAlertCircleSharp className="h-5 w-5 text-red-600" />
           <p className="text-sm text-red-600">{errorMessage}</p>
@@ -41,7 +41,7 @@ export const LoginForm = () => {
       )}
       <LoginButton />
 
-      {/* divisor l ine */}
+      {/* divisor line */}
       <div className='flex items-center my-5'>
         <div className='flex-1 border-t border-gray-500'></div>
         <div className='px-2 text-gray-800'>or</div>
@@ -58,11 +58,11 @@ export const LoginForm = () => {
 
 function LoginButton() {
   const { pending } = useFormStatus();
- 
+
   return (
-    <button type="submit" 
-            className={clsx( pending? "btn-disabled":"btn-primary" )}
-            disabled={pending}>
+    <button type="submit"
+      className={clsx(pending ? "btn-disabled" : "btn-primary")}
+      disabled={pending}>
       Log in
     </button>
   );
