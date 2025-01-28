@@ -27,7 +27,6 @@ export const Sidebar = () => {
 
   return (
     <div>
-      {/* Fondo negro semitransparente con evento onClick */}
       {isSideMenuOpen && (
         <div
           className="fixed top-0 left-0 w-screen h-screen z-10 bg-black/50"
